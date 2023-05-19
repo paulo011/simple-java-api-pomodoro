@@ -1,4 +1,4 @@
-package com.simplejavaapipomodoro.repository;
+package com.simplejavaapipomodoro.repositories;
 
 import com.simplejavaapipomodoro.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
