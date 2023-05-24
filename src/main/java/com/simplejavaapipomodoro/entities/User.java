@@ -1,15 +1,18 @@
 package com.simplejavaapipomodoro.entities;
 
+import com.simplejavaapipomodoro.DTO.UserRequestDTO;
 import com.simplejavaapipomodoro.constants.Gender;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
-import java.sql.Date;
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "tb_user")
+@Table(name = "tb_user", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "email"),
+        @UniqueConstraint(columnNames = "nick_name")
+})
 @Getter
 @Setter
 @NoArgsConstructor
@@ -33,11 +36,20 @@ public class User {
     private String password;
     @NotBlank
     @Column(name = "birth_date")
-    private Date birthDate;
+    private String birthDate;
     private Gender gender;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Session> sessions;
-    @Column(name = "registration_date", insertable = false, updatable = false)
-    @Temporal(TemporalType.DATE)
-    private Date registrationDate;
+    @Column(name = "creation_date", updatable = false)
+    private LocalDateTime creationDate;
+
+    public User(UserRequestDTO userRequestDTO){
+        this.id = userRequestDTO.id();
+        this.firstName = userRequestDTO.firstName();
+        this.lastName = userRequestDTO.lastName();
+        this.nickName = userRequestDTO.nickName();
+        this.email = userRequestDTO.email();
+        this.password = userRequestDTO.password();
+        this.birthDate = userRequestDTO.birthDate();
+        this.gender = userRequestDTO.gender();
+        this.creationDate = LocalDateTime.now();
+    }
 }
