@@ -23,4 +23,10 @@ public class Session {
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
+
+    public Session(User user, String title, String timeSession) {
+        this.user = user;
+        this.title = title;
+        this.timeSession = timeSession;
+    }
 }
