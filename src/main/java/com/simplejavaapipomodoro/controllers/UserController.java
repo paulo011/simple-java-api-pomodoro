@@ -29,12 +29,12 @@ public class UserController {
         return ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping(value = "{userId}/delete")
+    @DeleteMapping(value = "user/{userId}")
     public void delete(@PathVariable Long userId, @RequestBody UserRequestDTO userRequestDTO){
         userService.deleteUser(userId, userRequestDTO.password());
     }
 
-    @PutMapping(value = "/password")
+    @PutMapping(value = "user/password")
     public void changePassword(@RequestBody EmailPasswordsDTO EmailPasswordsDTO){
         userService.changeUserPassword(
                 EmailPasswordsDTO.email(),

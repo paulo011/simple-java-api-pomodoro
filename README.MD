@@ -4,12 +4,11 @@
 ---
 
 # Api Endpoint
-**(BASEURL) /api**
 
 ---
 
 ### **Create user**
-### **(POST) /user**
+### **(POST) api/user**
 
 **(REQUEST BODY)**
 ````json
@@ -40,7 +39,7 @@
 ---
 
 ### **User login**
-### **(POST) /login**
+### **(POST) api/login**
 
 **(REQUEST BODY)**
 ```json
@@ -64,7 +63,7 @@
 ---
 
 ### **Password Change**
-### **(PUT) user/{UserId}/password**
+### **(PUT) api/user/password**
 
 **(REQUEST BODY)**
 ````json
@@ -76,7 +75,7 @@
 ````
 ---
 ### **Delete user**
-### **(DELETE) /user/{userId}**
+### **(DELETE) api/user/{userId}**
 **(REQUEST BODY)**
 ```json
 {
@@ -87,7 +86,7 @@
 ---
 
 ### **Add session**
-### **(POST) user/{userId}/session**
+### **(POST) api/{userId}/session**
 **(REQUEST BODY)**
 
 ```json
@@ -99,7 +98,7 @@
 ---
 
 ### **Show user sessions**
-### **(GET) user/{userId}/all-sessions**
+### **(GET) api/{userId}/all-sessions**
 **(RESPONSE BODY)**
 ```json
 {
