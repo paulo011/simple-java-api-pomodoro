@@ -3,12 +3,11 @@
 
 ---
 
-# Api Endpoint
+# **Api Endpoint**
 
----
 
-### **Create user**
-### **(POST) api/user**
+## **Create user**
+(POST) api/user
 
 **(REQUEST BODY)**
 ````json
@@ -39,7 +38,7 @@
 ---
 
 ### **User login**
-### **(POST) api/login**
+(POST) api/login
 
 **(REQUEST BODY)**
 ```json
@@ -51,19 +50,19 @@
 **(RESPONSE BODY)**
 ```json
 {
-  "id": "1",
+  "id": 1,
   "firstName": "Joel",
-  "lastname": "Ciclone",
+  "lastName": "Ciclone",
   "nickName": "JoelCiclone",
   "email": "joelciclone@email.com",
-  "birthDate": "1996/05/10",
-  "gender": "male"
+  "gender": "Male",
+  "birthDate": "1990/12/12"
 }
 ```
 ---
 
 ### **Password Change**
-### **(PUT) api/user/password**
+(PUT) api/user/password
 
 **(REQUEST BODY)**
 ````json
@@ -75,7 +74,7 @@
 ````
 ---
 ### **Delete user**
-### **(DELETE) api/user/{userId}**
+(DELETE) api/user/{userId}
 **(REQUEST BODY)**
 ```json
 {
@@ -86,7 +85,8 @@
 ---
 
 ### **Add session**
-### **(POST) api/{userId}/session**
+(POST) api/{userId}/session
+
 **(REQUEST BODY)**
 
 ```json
@@ -98,23 +98,40 @@
 ---
 
 ### **Show user sessions**
-### **(GET) api/{userId}/all-sessions**
+(GET) api/{userId}/all-sessions
+
 **(RESPONSE BODY)**
 ```json
 {
-  "totalTimeAllTasks": "80:04:00",
+  "totalSessionsTime": {
+    "hours": 71,
+    "minutes": 55,
+    "seconds": 0
+  },
   "listSessions": [
     {
       "title": "inglês",
-      "totalTime": "12:42:00"
+      "timeSession": {
+        "hours": 4,
+        "minutes": 23,
+        "seconds": 0
+      }
     },
     {
       "title": "Hindi",
-      "totalTime": "44:22:00"
+      "timeSession": {
+        "hours": 44,
+        "minutes": 22,
+        "seconds": 0
+      }
     },
     {
       "title": "Italian",
-      "totalTime": "23:10:00"
+      "timeSession": {
+        "hours": 23,
+        "minutes": 10,
+        "seconds": 0
+      }
     }
   ]
 }
