@@ -1,5 +1,6 @@
 package com.simplejavaapipomodoro.services;
 
+import com.simplejavaapipomodoro.DTO.UserSessionsDTO;
 import com.simplejavaapipomodoro.entities.User;
 import com.simplejavaapipomodoro.repositories.SessionRepository;
 import com.simplejavaapipomodoro.repositories.UserRepository;

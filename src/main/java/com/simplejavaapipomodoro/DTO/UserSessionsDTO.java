@@ -1,8 +1,8 @@
 package com.simplejavaapipomodoro.DTO;
 
-import com.simplejavaapipomodoro.entities.Session;
+import com.simplejavaapipomodoro.entities.TimeSession;
 
 import java.util.List;
 
-public record UserSessionsDTO(String totalSessionsTime, List<Session> sessions) {
+public record UserSessionsDTO(TimeSession totalSessionsTime, List<SessionDTO> listSessions) {
 }

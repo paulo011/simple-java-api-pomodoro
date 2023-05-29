@@ -1,4 +1,6 @@
 package com.simplejavaapipomodoro.DTO;
 
-public record SessionDTO(String title, String timeSession) {
+import com.simplejavaapipomodoro.entities.TimeSession;
+
+public record SessionDTO(String title, TimeSession timeSession) {
 }
