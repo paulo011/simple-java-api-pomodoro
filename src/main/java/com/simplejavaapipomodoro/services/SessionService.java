@@ -23,14 +23,18 @@ public class SessionService {
     @Autowired
     private UserRepository userRepository;
 
-    public void create(Long id, String title, String timeSession){
+    public Optional<SessionDTO> createSession(Long id, String title, String timeSession){
         Optional<User> user = userRepository.findById(id);
+
         if(user.isPresent()){
-            sessionRepository.save(new Session(user.get(), title, timeSession));
+            Session session = sessionRepository.save(new Session(user.get(), title, timeSession));
+            return Optional.of(new SessionDTO(session));
         }
+
+        return Optional.empty();
     }
 
-    public UserSessionsDTO allSessions(Integer id){
+    public Optional<UserSessionsDTO> allSessions(Long id){
         Optional<List<Session>> optionalSessions = sessionRepository.findAllByUserId(id);
 
         List<SessionDTO> sessionDTOS = new ArrayList<>();
@@ -43,11 +47,16 @@ public class SessionService {
                         sessionDTOS.add(sessionDTO);
                     }
             );
+
             sessionDTOS.forEach(value -> {
                 TimeSession timeSession = new TimeSession(value.timeSession().toString());
                 totalTimeSession.concatenateTime(timeSession);
             });
         }
-        return new UserSessionsDTO(totalTimeSession, sessionDTOS);
+
+        if (sessionDTOS.isEmpty()) return Optional.empty();
+        else{
+            return Optional.of(new UserSessionsDTO(totalTimeSession, sessionDTOS));
+        }
     }
 }

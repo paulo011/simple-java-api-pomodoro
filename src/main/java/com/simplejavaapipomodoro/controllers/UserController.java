@@ -3,6 +3,7 @@ package com.simplejavaapipomodoro.controllers;
 import com.simplejavaapipomodoro.DTO.*;
 import com.simplejavaapipomodoro.entities.User;
 import com.simplejavaapipomodoro.services.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,31 +16,31 @@ public class UserController {
     @Autowired
     private UserService userService;
     @PostMapping(value = "/user")
-    public void createUser(@RequestBody UserRequestDTO userRequestDTO){
-        userService.create(new User(userRequestDTO));
+    public ResponseEntity<UserResponseDTO> createUser(@RequestBody @Valid UserRequestDTO userRequestDTO){
+        Optional<UserResponseDTO> responseDTO = userService.createUser(new User(userRequestDTO));
+        return responseDTO.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping(value = "/login")
-    public ResponseEntity<UserResponseDTO> login(@RequestBody UserRequestDTO userRequestDTO){
-        Optional<User> response = userService.UserLogin(userRequestDTO.nickName(), userRequestDTO.password());
-        if(response.isPresent()){
-            UserResponseDTO userResponseDTO = new UserResponseDTO(response);
-            return ResponseEntity.ok(userResponseDTO);
-        }
-        return ResponseEntity.notFound().build();
+    public ResponseEntity<UserResponseDTO> UserLogin(@RequestBody @Valid UserRequestDTO userRequestDTO){
+        Optional<UserResponseDTO> responseDTO = userService.UserLogin(userRequestDTO.nickName(), userRequestDTO.password());
+        return responseDTO.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping(value = "user/{userId}")
-    public void delete(@PathVariable Long userId, @RequestBody UserRequestDTO userRequestDTO){
-        userService.deleteUser(userId, userRequestDTO.password());
+    @DeleteMapping(value = "user/{userEmail}")
+    public ResponseEntity<String> deleteUser(@PathVariable String userEmail, @RequestBody @Valid UserRequestDTO userRequestDTO){
+        Optional<String> response = userService.deleteUser(userEmail, userRequestDTO.password());
+        return response.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PutMapping(value = "user/password")
-    public void changePassword(@RequestBody EmailPasswordsDTO EmailPasswordsDTO){
-        userService.changeUserPassword(
+    public ResponseEntity<String> changeUserPassword(@RequestBody @Valid EmailPasswordsDTO EmailPasswordsDTO){
+        Optional<String> response = userService.changeUserPassword(
                 EmailPasswordsDTO.email(),
                 EmailPasswordsDTO.oldPassword(),
                 EmailPasswordsDTO.newPassword()
         );
+
+        return response.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 }

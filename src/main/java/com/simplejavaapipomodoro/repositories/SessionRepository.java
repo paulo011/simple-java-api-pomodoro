@@ -12,5 +12,8 @@ import java.util.Optional;
 public interface SessionRepository extends JpaRepository<Session, Long> {
     @Modifying
     @Query(nativeQuery = true, value = "SELECT * FROM tb_session WHERE tb_session.user_id = :userId")
-    Optional<List<Session>> findAllByUserId(@Param("userId") Integer UserId);
+    Optional<List<Session>> findAllByUserId(@Param("userId") Long UserId);
+    @Modifying
+    @Query(nativeQuery = true, value = "DELETE FROM tb_session WHERE tb_session.user_id = :userId")
+    void deleteAllByUserId(@Param("userId") Long UserId);
 }

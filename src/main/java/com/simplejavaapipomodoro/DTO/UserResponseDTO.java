@@ -9,4 +9,7 @@ public record UserResponseDTO(Long id, String firstName, String lastName, String
     public UserResponseDTO(Optional<User> user){
         this(user.get().getId(), user.get().getFirstName(), user.get().getLastName(), user.get().getNickName(), user.get().getEmail(), user.get().getGender(), user.get().getBirthDate());
     }
+    public UserResponseDTO(User user){
+        this(user.getId(), user.getFirstName(), user.getLastName(), user.getNickName(), user.getEmail(), user.getGender(), user.getBirthDate());
+    }
 }

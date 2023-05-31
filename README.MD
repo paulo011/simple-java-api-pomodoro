@@ -17,7 +17,7 @@
   "nickName": "JoelCiclone",
   "email": "joelciclone@email.com",
   "password": "2342364564564564",
-  "birthDate": "1996/05/10",
+  "birthDate": "1990/12/12",
   "gender": "0"
 }
 ````
@@ -25,14 +25,13 @@
 **(RESPONSE BODY)**
 ````json
 {
-  "id": "1",
+  "id": 1,
   "firstName": "Joel",
   "lastName": "Ciclone",
   "nickName": "JoelCiclone",
   "email": "joelciclone@email.com",
-  "password": "2342364564564564",
-  "birthDate": "1996/05/10",
-  "gender": "male"
+  "gender": "Male",
+  "birthDate": "1990/12/12"
 }
 ````
 ---
@@ -69,17 +68,29 @@
 {
   "email": "joelciclone@email.com",
   "oldPassword": "2342364564564564",
-  "newPassword": "45345344"
+  "newPassword": "newPassword"
 }
 ````
+
+**(RESPONSE BODY)**
+```text
+successfully changed password
+```
+
 ---
 ### **Delete user**
-(DELETE) api/user/{userId}
+(DELETE) api/user/{userEmail}
+
 **(REQUEST BODY)**
 ```json
 {
   "password": "2342364564564564"
 }
+```
+
+**(RESPONSE BODY)**
+```text
+User deleted
 ```
 
 ---
@@ -88,11 +99,22 @@
 (POST) api/{userId}/session
 
 **(REQUEST BODY)**
-
 ```json
 {
-	"title": "inglês",
-	"timeSession": "04:23:00"
+  "title": "Italian",
+  "timeSession": "23:10:00"
+}
+```
+
+**(RESPONSE BODY)**
+```json
+{
+    "title": "Italian",
+    "timeSession": {
+        "hours": 23,
+        "minutes": 10,
+        "seconds": 0
+    }
 }
 ```
 ---

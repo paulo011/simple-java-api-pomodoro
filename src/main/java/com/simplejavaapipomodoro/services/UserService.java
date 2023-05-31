@@ -1,6 +1,6 @@
 package com.simplejavaapipomodoro.services;
 
-import com.simplejavaapipomodoro.DTO.UserSessionsDTO;
+import com.simplejavaapipomodoro.DTO.UserResponseDTO;
 import com.simplejavaapipomodoro.entities.User;
 import com.simplejavaapipomodoro.repositories.SessionRepository;
 import com.simplejavaapipomodoro.repositories.UserRepository;
@@ -15,35 +15,45 @@ import java.util.Optional;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private SessionRepository sessionRepository;
 
-    public void create(User user){
-        userRepository.save(user);
+    public Optional<UserResponseDTO> createUser(User user){
+        User userCreated = userRepository.save(user);
+        return Optional.of(new UserResponseDTO(userCreated));
     }
 
-    public Optional<User> UserLogin(String nickName, String password){
+    public Optional<UserResponseDTO> UserLogin(String nickName, String password){
         Optional<User> user = userRepository.findByNickName(nickName);
+
         if(user.isPresent() && user.get().getPassword().equals(password)){
-            return user;
+            return Optional.of(new UserResponseDTO(user));
+        }
+
+        return Optional.empty();
+    }
+
+    public Optional<String> deleteUser(String email, String password){
+        Optional<User> user = userRepository.findByEmail(email);
+
+        if(user.isPresent() && user.get().getPassword().equals(password)){
+            Long userId = user.get().getId();
+            sessionRepository.deleteAllByUserId(userId);
+            userRepository.deleteById(userId);
+            return Optional.of("User deleted");
         }
         return Optional.empty();
     }
 
-    public void deleteUser(Long id, String password){
-        // TODO: criar forma de excluir todos os sessions que tem o relacionamento com o user [RESOLVER]
-        Optional<User> user = userRepository.findById(id);
-        if(user.isPresent() && user.get().getPassword().equals(password)){
-            System.out.println(user.get().getId());
-            userRepository.deleteById(id);
-        }
-    }
-
-    public void changeUserPassword(String email, String oldPassword, String newPassword){
+    public Optional<String> changeUserPassword(String email, String oldPassword, String newPassword){
         Optional<User> user = userRepository.findByEmail(email);
+
         if(user.isPresent() && user.get().getPassword().equals(oldPassword)) {
-            int i = userRepository.updateUserPassword(email, newPassword);
+            if(!user.get().getPassword().equals(newPassword)){
+                user.get().setPassword(newPassword);
+                return Optional.of("successfully changed password");
+            }
         }
+        return Optional.empty();
     }
 }
