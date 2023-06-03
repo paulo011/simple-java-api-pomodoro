@@ -1,4 +1,4 @@
 package com.simplejavaapipomodoro.DTO;
 
-public record ErrorDTO(String statusCode, String message) {
+public record ErrorDTO(int statusCode, String message) {
 }

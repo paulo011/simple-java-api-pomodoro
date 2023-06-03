@@ -19,6 +19,9 @@ public class UserService {
     private SessionRepository sessionRepository;
 
     public Optional<UserResponseDTO> createUser(User user){
+        Optional<User> emailExists = userRepository.findByEmail(user.getEmail());
+        if(emailExists.isPresent()) return Optional.empty();
+
         User userCreated = userRepository.save(user);
         return Optional.of(new UserResponseDTO(userCreated));
     }
@@ -29,7 +32,6 @@ public class UserService {
         if(user.isPresent() && user.get().getPassword().equals(password)){
             return Optional.of(new UserResponseDTO(user));
         }
-
         return Optional.empty();
     }
 

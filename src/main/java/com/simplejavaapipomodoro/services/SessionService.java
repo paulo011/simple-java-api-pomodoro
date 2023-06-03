@@ -54,9 +54,7 @@ public class SessionService {
             });
         }
 
-        if (sessionDTOS.isEmpty()) return Optional.empty();
-        else{
             return Optional.of(new UserSessionsDTO(totalTimeSession, sessionDTOS));
-        }
+
     }
 }
