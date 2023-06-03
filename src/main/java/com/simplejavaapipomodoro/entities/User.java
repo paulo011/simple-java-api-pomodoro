@@ -3,6 +3,7 @@ package com.simplejavaapipomodoro.entities;
 import com.simplejavaapipomodoro.DTO.UserRequestDTO;
 import com.simplejavaapipomodoro.constants.Gender;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
@@ -27,6 +28,7 @@ public class User {
     @Column(name = "last_name", length = 10)
     private String lastName;
     @NotBlank
+    @Email
     @Column(length = 50)
     private String email;
     @NotBlank

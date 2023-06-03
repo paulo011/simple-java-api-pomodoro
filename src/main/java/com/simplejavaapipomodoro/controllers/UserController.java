@@ -22,8 +22,8 @@ public class UserController {
     }
 
     @PostMapping(value = "/login")
-    public ResponseEntity<UserResponseDTO> UserLogin(@RequestBody @Valid UserRequestDTO userRequestDTO){
-        Optional<UserResponseDTO> responseDTO = userService.UserLogin(userRequestDTO.nickName(), userRequestDTO.password());
+    public ResponseEntity<UserResponseDTO> UserLogin(@RequestBody @Valid LoginDTO loginDTO){
+        Optional<UserResponseDTO> responseDTO = userService.UserLogin(loginDTO.nickName(), loginDTO.password());
         return responseDTO.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
