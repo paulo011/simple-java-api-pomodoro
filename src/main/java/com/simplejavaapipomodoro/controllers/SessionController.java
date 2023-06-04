@@ -1,7 +1,8 @@
 package com.simplejavaapipomodoro.controllers;
 
 import com.simplejavaapipomodoro.DTO.ErrorDTO;
-import com.simplejavaapipomodoro.DTO.SessionDTO;
+import com.simplejavaapipomodoro.DTO.SessionRequestDTO;
+import com.simplejavaapipomodoro.DTO.SessionResponseDTO;
 import com.simplejavaapipomodoro.DTO.UserSessionsDTO;
 import com.simplejavaapipomodoro.services.SessionService;
 import jakarta.validation.Valid;
@@ -19,9 +20,9 @@ public class SessionController {
     private SessionService sessionService;
 
     @PostMapping(value = "/{userId}/session")
-    public ResponseEntity<?> AddSession(@PathVariable Long userId, @RequestBody @Valid SessionDTO sessionDTO){
-        Optional<SessionDTO> responseDTO = sessionService.createSession(
-                userId, sessionDTO.title(), sessionDTO.timeSession().toString());
+    public ResponseEntity<?> AddSession(@PathVariable Long userId, @RequestBody @Valid SessionRequestDTO sessionDTO){
+        Optional<SessionResponseDTO> responseDTO = sessionService.createSession(
+                userId, sessionDTO.title(), sessionDTO.timeSession());
         if(responseDTO.isEmpty()){
             return ResponseEntity.badRequest().body(new ErrorDTO(HttpStatus.BAD_REQUEST, "title or timeSession invalid"));
         }

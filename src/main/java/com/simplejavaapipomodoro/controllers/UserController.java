@@ -32,8 +32,8 @@ public class UserController {
     }
 
     @DeleteMapping(value = "user/{userEmail}")
-    public ResponseEntity<?> deleteUser(@PathVariable String userEmail, @RequestBody @Valid UserRequestDTO userRequestDTO){
-        Optional<String> response = userService.deleteUser(userEmail, userRequestDTO.password());
+    public ResponseEntity<?> deleteUser(@PathVariable String userEmail, @RequestBody @Valid passwordDTO passwordDTO){
+        Optional<String> response = userService.deleteUser(userEmail, passwordDTO.password());
         if (response.isEmpty()){
             return ResponseEntity.badRequest().body(new ErrorDTO(HttpStatus.BAD_REQUEST, "email or password incorrect"));
         }

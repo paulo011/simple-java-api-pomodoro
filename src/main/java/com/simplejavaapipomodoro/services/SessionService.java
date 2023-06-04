@@ -1,6 +1,6 @@
 package com.simplejavaapipomodoro.services;
 
-import com.simplejavaapipomodoro.DTO.SessionDTO;
+import com.simplejavaapipomodoro.DTO.SessionResponseDTO;
 import com.simplejavaapipomodoro.DTO.UserSessionsDTO;
 import com.simplejavaapipomodoro.entities.TimeSession;
 import com.simplejavaapipomodoro.entities.Session;
@@ -23,12 +23,12 @@ public class SessionService {
     @Autowired
     private UserRepository userRepository;
 
-    public Optional<SessionDTO> createSession(Long id, String title, String timeSession){
+    public Optional<SessionResponseDTO> createSession(Long id, String title, String timeSession){
         Optional<User> user = userRepository.findById(id);
 
         if(user.isPresent()){
             Session session = sessionRepository.save(new Session(user.get(), title, timeSession));
-            return Optional.of(new SessionDTO(session));
+            return Optional.of(new SessionResponseDTO(session));
         }
 
         return Optional.empty();
@@ -37,13 +37,13 @@ public class SessionService {
     public Optional<UserSessionsDTO> allSessions(Long id){
         Optional<List<Session>> optionalSessions = sessionRepository.findAllByUserId(id);
 
-        List<SessionDTO> sessionDTOS = new ArrayList<>();
+        List<SessionResponseDTO> sessionDTOS = new ArrayList<>();
         TimeSession totalTimeSession = new TimeSession();
 
         if(optionalSessions.isPresent()){
             optionalSessions.get().forEach(
                     value -> {
-                        SessionDTO sessionDTO = new SessionDTO(value.getTitle(), new TimeSession(value.getTimeSession()));
+                        SessionResponseDTO sessionDTO = new SessionResponseDTO(value.getTitle(), new TimeSession(value.getTimeSession()));
                         sessionDTOS.add(sessionDTO);
                     }
             );

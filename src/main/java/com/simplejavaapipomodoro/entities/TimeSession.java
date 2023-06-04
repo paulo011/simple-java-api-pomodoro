@@ -1,5 +1,6 @@
 package com.simplejavaapipomodoro.entities;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.time.Duration;
@@ -20,7 +21,7 @@ public class TimeSession {
         this.seconds = 0;
     }
 
-    public TimeSession(String stringTime){
+    public TimeSession(@NotBlank String stringTime){
         List<Integer> listTime = new ArrayList<>();
         Pattern pattern = Pattern.compile("\\d+");
         Matcher matcher = pattern.matcher(stringTime);

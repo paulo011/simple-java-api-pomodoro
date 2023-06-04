@@ -1,6 +1,5 @@
 package com.simplejavaapipomodoro.GlobalExceptionHandlers;
 
-import com.simplejavaapipomodoro.DTO.ErrorDTO;
 import com.simplejavaapipomodoro.DTO.GlobalErrorDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
