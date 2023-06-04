@@ -20,7 +20,8 @@ public class UserService {
 
     public Optional<UserResponseDTO> createUser(User user){
         Optional<User> emailExists = userRepository.findByEmail(user.getEmail());
-        if(emailExists.isPresent()) return Optional.empty();
+        Optional<User> nickNameExists = userRepository.findByNickName(user.getNickName());
+        if(emailExists.isPresent() && nickNameExists.isPresent()) return Optional.empty();
 
         User userCreated = userRepository.save(user);
         return Optional.of(new UserResponseDTO(userCreated));
