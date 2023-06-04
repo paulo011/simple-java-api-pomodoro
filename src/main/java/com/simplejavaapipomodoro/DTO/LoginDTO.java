@@ -1,4 +1,6 @@
 package com.simplejavaapipomodoro.DTO;
 
-public record LoginDTO(String nickName, String password) {
+import jakarta.validation.constraints.NotBlank;
+
+public record LoginDTO(@NotBlank String nickName, @NotBlank String password) {
 }

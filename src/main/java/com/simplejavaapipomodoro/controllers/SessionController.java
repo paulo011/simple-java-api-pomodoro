@@ -6,6 +6,7 @@ import com.simplejavaapipomodoro.DTO.UserSessionsDTO;
 import com.simplejavaapipomodoro.services.SessionService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +23,7 @@ public class SessionController {
         Optional<SessionDTO> responseDTO = sessionService.createSession(
                 userId, sessionDTO.title(), sessionDTO.timeSession().toString());
         if(responseDTO.isEmpty()){
-            return ResponseEntity.badRequest().body(new ErrorDTO(400, "title or timeSession invalid"));
+            return ResponseEntity.badRequest().body(new ErrorDTO(HttpStatus.BAD_REQUEST, "title or timeSession invalid"));
         }
         return ResponseEntity.ok(responseDTO);
     }

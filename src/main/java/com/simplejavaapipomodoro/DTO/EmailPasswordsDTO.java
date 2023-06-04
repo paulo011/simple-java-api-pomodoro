@@ -1,4 +1,7 @@
 package com.simplejavaapipomodoro.DTO;
 
-public record EmailPasswordsDTO(String email, String oldPassword, String newPassword) {
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
+public record EmailPasswordsDTO(@NotBlank @Email String email, @NotBlank String oldPassword, @NotBlank String newPassword) {
 }

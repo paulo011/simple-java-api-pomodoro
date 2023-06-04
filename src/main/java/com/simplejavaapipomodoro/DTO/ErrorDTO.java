@@ -1,4 +1,6 @@
 package com.simplejavaapipomodoro.DTO;
 
-public record ErrorDTO(int statusCode, String message) {
+import org.springframework.http.HttpStatus;
+
+public record ErrorDTO(HttpStatus statusCode, String message) {
 }
