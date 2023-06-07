@@ -27,6 +27,13 @@ public class SessionService {
         Optional<User> user = userRepository.findById(id);
 
         if(user.isPresent()){
+            Optional<Session> sessionOptional = sessionRepository.findByTitle(title);
+            if(sessionOptional.isPresent()){
+                TimeSession firstTimeSession = new TimeSession(timeSession);
+                TimeSession secondTimeSession = new TimeSession(sessionOptional.get().getTimeSession());
+                sessionOptional.get().setTimeSession(firstTimeSession.concatenateTime(secondTimeSession));
+                return Optional.of(new SessionResponseDTO(sessionOptional.get()));
+            }
             Session session = sessionRepository.save(new Session(user.get(), title, timeSession));
             return Optional.of(new SessionResponseDTO(session));
         }

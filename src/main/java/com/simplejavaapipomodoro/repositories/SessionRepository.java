@@ -16,4 +16,6 @@ public interface SessionRepository extends JpaRepository<Session, Long> {
     @Modifying
     @Query(nativeQuery = true, value = "DELETE FROM tb_session WHERE tb_session.user_id = :userId")
     void deleteAllByUserId(@Param("userId") Long UserId);
+
+    Optional<Session> findByTitle(String title);
 }
