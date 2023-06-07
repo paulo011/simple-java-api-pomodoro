@@ -20,7 +20,8 @@ public class UserController {
     public ResponseEntity<?> createUser(@RequestBody @Valid UserRequestDTO userRequestDTO){
         Optional<UserResponseDTO> responseDTO = userService.createUser(new User(userRequestDTO));
         if (responseDTO.isEmpty()){
-            return ResponseEntity.badRequest().body(new ErrorDTO(HttpStatus.BAD_REQUEST, "email or nickName already exists"));
+            return ResponseEntity.badRequest()
+                    .body(new ErrorDTO(HttpStatus.BAD_REQUEST, "email or nickName already exists"));
         }
         return ResponseEntity.ok(responseDTO);
     }
@@ -35,7 +36,8 @@ public class UserController {
     public ResponseEntity<?> deleteUser(@PathVariable String userEmail, @RequestBody @Valid passwordDTO passwordDTO){
         Optional<String> response = userService.deleteUser(userEmail, passwordDTO.password());
         if (response.isEmpty()){
-            return ResponseEntity.badRequest().body(new ErrorDTO(HttpStatus.BAD_REQUEST, "email or password incorrect"));
+            return ResponseEntity.badRequest()
+                    .body(new ErrorDTO(HttpStatus.BAD_REQUEST, "email or password incorrect"));
         }
         return ResponseEntity.ok(response);
     }
@@ -48,7 +50,8 @@ public class UserController {
                 EmailPasswordsDTO.newPassword()
         );
         if(response.isEmpty()){
-            return ResponseEntity.badRequest().body(new ErrorDTO(HttpStatus.BAD_REQUEST, "password already exist or too short password"));
+            return ResponseEntity.badRequest()
+                    .body(new ErrorDTO(HttpStatus.BAD_REQUEST, "password already exist or too short password"));
         }
         return ResponseEntity.ok(response);
     }
