@@ -21,22 +21,12 @@ public class SessionController {
 
     @PostMapping(value = "/{userId}/session")
     public ResponseEntity<?> AddSession(@PathVariable Long userId, @RequestBody @Valid SessionRequestDTO sessionDTO){
-        Optional<SessionResponseDTO> responseDTO = sessionService.createSession(
+        return  sessionService.addSession(
                 userId, sessionDTO.title(), sessionDTO.timeSession());
-        if(responseDTO.isEmpty()){
-            return ResponseEntity.badRequest()
-                    .body(new ErrorDTO(HttpStatus.BAD_REQUEST, "title or timeSession invalid"));
-        }
-        return ResponseEntity.ok(responseDTO);
     }
 
     @GetMapping(value = "{userId}/all-sessions")
     public ResponseEntity<?> getAllSessions(@PathVariable Long userId){
-        Optional<UserSessionsDTO> responseDTO = sessionService.allSessions(userId);
-        if(responseDTO.isEmpty()){
-            return ResponseEntity.badRequest()
-                    .body(new ErrorDTO(HttpStatus.NOT_FOUND, "id: not found"));
-        }
-        return ResponseEntity.ok(responseDTO);
+        return sessionService.findAllSessions(userId);
     }
 }
