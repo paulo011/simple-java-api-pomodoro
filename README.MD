@@ -1,5 +1,13 @@
 # Rest api for pomodoro frontend projects
-**The dependency manager used was maven**
+**Requirements**
+* Java 17
+* Maven
+* Spring Web
+* Spring JPA
+* Spring Validation
+* H2
+* Postgresql (Optional)
+* Lombok
 
 ---
 
@@ -61,12 +69,11 @@
 ---
 
 ### **Password Change**
-(PUT) api/user/password
+(PUT) api/user/{userId}/password
 
 **(REQUEST BODY)**
 ````json
 {
-  "email": "joelciclone@email.com",
   "oldPassword": "2342364564564564",
   "newPassword": "newPassword"
 }
@@ -79,7 +86,7 @@ successfully changed password
 
 ---
 ### **Delete user**
-(DELETE) api/user/{userEmail}
+(DELETE) api/user/{userId}
 
 **(REQUEST BODY)**
 ```json
